@@ -1,4 +1,4 @@
-`![Aura IDE in Action](docs/images/aura_ide_screenshot.png)`
+![Aura IDE in Action](docs/images/aura_ide_screenshot.png)
 
 # Aura IDE - Proof-of-Concept (Archived)
 
