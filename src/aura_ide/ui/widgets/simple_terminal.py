@@ -9,7 +9,7 @@ class SimpleTerminal(QPlainTextEdit):
         self.prompt_str = "$ "
         self.current_path_str = "~"
         self.history = []
-        self.history_index = -1 # Corrigido para começar antes do primeiro item
+        self.history_index = -1
         self.current_command_start_pos = 0
         self.unique_end_marker = "###AURA_IDE_CMD_END###"
         self.is_processing_initial_prompt = True
@@ -24,7 +24,6 @@ class SimpleTerminal(QPlainTextEdit):
         font.setPointSize(10)
         self.setFont(font)
         self.setStyleSheet("QPlainTextEdit { background-color: #282c34; color: #abb2bf; border: none; }")
-        # self.setReadOnly(True) # <--- REMOVIDO/COMENTADO
         self.setUndoRedoEnabled(False)
 
     def _start_shell_process(self):
@@ -83,7 +82,6 @@ class SimpleTerminal(QPlainTextEdit):
                 lines = text_before_marker.strip().split('\n')
                 if lines:
                     self.current_path_str = lines[0].strip()
-                # self._append_output_text(text_before_marker) # <--- REMOVIDO/COMENTADO
                 self.is_processing_initial_prompt = False
             else:
                 # Processar saída do comando e PWD
@@ -122,9 +120,7 @@ class SimpleTerminal(QPlainTextEdit):
         if not self.history or self.history[-1] != command_str: # Evitar duplicados consecutivos no histórico
             self.history.append(command_str)
         self.history_index = len(self.history) # Aponta para depois do último item para novo comando
-
-        # self._append_output_text(f"{command_str}\n") # LINHA ORIGINAL REMOVIDA/COMENTADA
-        self._append_output_text("\n") # APENAS ADICIONA NOVA LINHA APÓS O COMANDO DIGITADO
+        self._append_output_text("\n")
 
         # Enviar comando para o shell, seguido por 'pwd' e o marcador
         full_shell_command = f"{command_str.strip()}; pwd; echo '{self.unique_end_marker}'\n"

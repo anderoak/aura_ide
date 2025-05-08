@@ -3,9 +3,6 @@ import configparser
 from aura_ide.ai.gemini_provider import GeminiProvider
 from aura_ide.ui.widgets.ai_terminal_widget import AITerminalWidget
 
-# Se BaseAIProvider for usado para type hinting:
-# from aura_ide.ai.base_provider import BaseAIProvider
-
 from PySide6.QtCore import Qt, QDir, QTimer 
 from PySide6.QtWidgets import (
     QApplication,
@@ -23,8 +20,8 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QPushButton
 )
-from aura_ide.ui.widgets.simple_terminal import SimpleTerminal # Importação adicionada
-from aura_ide.ui.widgets.chat_input_text_edit import ChatInputTextEdit # Nova importação
+from aura_ide.ui.widgets.simple_terminal import SimpleTerminal
+from aura_ide.ui.widgets.chat_input_text_edit import ChatInputTextEdit
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -35,10 +32,9 @@ class MainWindow(QMainWindow):
 
         # 1. Criar os componentes da UI (menus, layout principal com todos os widgets)
         self._create_menu_bar()
-        self._create_main_layout() # Agora self.ai_model_selector e self.chat_display_area existem
+        self._create_main_layout()
 
         # 2. Inicializar o provedor de IA e carregar configurações
-        #    Agora é seguro chamar este método, pois os widgets da UI que ele usa já existem.
         self.ai_provider = None 
         self._load_config_and_init_ai()
         
@@ -147,7 +143,7 @@ class MainWindow(QMainWindow):
         self.chat_input_widget = ChatInputTextEdit()
         self.chat_input_widget.setPlaceholderText("Digite sua mensagem... (Ctrl+Enter para enviar)")
         self.chat_input_widget.setFixedHeight(80)
-        self.chat_input_widget.message_submitted.connect(self._send_chat_message_from_input_widget) # Novo slot
+        self.chat_input_widget.message_submitted.connect(self._send_chat_message_from_input_widget)
 
         chat_layout.addWidget(self.chat_input_widget)
         # Adicionar o painel de chat ao splitter vertical esquerdo
@@ -285,7 +281,6 @@ class MainWindow(QMainWindow):
             self._update_ai_status_ui(available=False, message="IA Indisponível - config.ini não encontrado")
             return
 
-        # Tentar Gemini se DeepSeek não foi inicializado com sucesso
         if not ai_successfully_initialized:
             gemini_api_key = config.get('API_KEYS', 'GEMINI_API_KEY', fallback=None)
             if gemini_api_key and gemini_api_key != "SUA_CHAVE_API_GEMINI_AQUI": # Adicione um placeholder se quiser
@@ -319,7 +314,6 @@ class MainWindow(QMainWindow):
                 self.ai_model_selector.addItems(models)
                 self.ai_model_selector.setEnabled(True)
 
-                # --- INÍCIO DA MODIFICAÇÃO PARA SELECIONAR O PADRÃO ---
                 default_model_to_select = None
                 if self.ai_provider and hasattr(self.ai_provider, 'get_default_model_name'):
                     default_model_to_select = self.ai_provider.get_default_model_name()
@@ -334,7 +328,6 @@ class MainWindow(QMainWindow):
                         # O modelo padrão não está na lista de modelos disponíveis (pode acontecer)
                         print(f"AVISO: Modelo padrão '{default_model_to_select}' não encontrado na lista de modelos disponíveis: {models}")
                         # O ComboBox selecionará o primeiro item por padrão (índice 0) se houver algum.
-                # --- FIM DA MODIFICAÇÃO ---
                 
                 if self.chat_display_area:
                     self.chat_display_area.appendPlainText(f"Aura IA: Conectada ao {provider_name}!")

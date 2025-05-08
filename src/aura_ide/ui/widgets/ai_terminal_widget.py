@@ -157,7 +157,7 @@ class AITerminalWidget(QPlainTextEdit):
             self.process.waitForFinished(1000)
         super().closeEvent(event)
 
-# Bloco para teste isolado (opcional)
+# Bloco para teste isolado
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
@@ -184,7 +184,6 @@ if __name__ == '__main__':
     ai_terminal.command_output_ready.connect(handle_output)
     ai_terminal.ready_for_next_ai_command.connect(ready_for_next)
     
-    # --- INÍCIO DA CORREÇÃO ---
     # Usar uma lista para encapsular o estado do flag
     initial_prompt_processed_container = [False] 
 
@@ -199,7 +198,6 @@ if __name__ == '__main__':
                 ai_terminal.ready_for_next_ai_command.disconnect(on_first_ready)
             except RuntimeError:
                 pass
-    # --- FIM DA CORREÇÃO ---
 
     ai_terminal.ready_for_next_ai_command.connect(on_first_ready)
 
