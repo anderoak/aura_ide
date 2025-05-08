@@ -87,7 +87,7 @@ From the root directory of the project (with the virtual environment activated):
 python run.py
 
 
-Future Outlook
+## Future Outlook
 
 The core ideas and the initial proof-of-concept for Aura IDE remain compelling. Future advancements in:
 
