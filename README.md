@@ -92,9 +92,9 @@ python run.py
 
 The core ideas and the initial proof-of-concept for Aura IDE remain compelling. Future advancements in:
 
-. Smaller, more efficient, and capable local LLMs.
-. Larger context windows and more efficient context management for APIs.
-. More accessible powerful hardware for local AI.
+* Smaller, more efficient, and capable local LLMs.
+* Larger context windows and more efficient context management for APIs.
+* More accessible powerful hardware for local AI.
 
 could make revisiting and significantly expanding this project highly feasible. The concept of an AI with direct, supervised agency within a development environment holds immense potential for the future of software development.
 Acknowledgements
