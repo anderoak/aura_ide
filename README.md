@@ -1,6 +1,6 @@
-![Aura IDE in Action](docs/images/image.png)
-
 # Aura IDE - Proof-of-Concept (Archived)
+
+![Aura IDE in Action](docs/images/image.png)
 
 **Aura IDE is an experimental proof-of-concept project exploring the idea of an Integrated Development Environment (IDE) where a human developer and an AI assistant (powered by a Large Language Model like Google's Gemini) can collaboratively develop software. A key and unique feature explored was granting the AI direct access to its own dedicated Linux terminal to execute commands.**
 
