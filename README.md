@@ -86,6 +86,7 @@ From the root directory of the project (with the virtual environment activated):
 ```bash
 python run.py
 
+```
 
 ## Future Outlook
 
